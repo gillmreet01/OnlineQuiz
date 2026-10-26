@@ -72,6 +72,129 @@ OnlineQuiz/
 
 **Common problems:** *404 after start* - use the project name in the URL (`/OnlineQuiz/`). *"Port 8080 in use"* - stop other Tomcat or change the port in Eclipse's Servers view. *JSTL / `c:` errors* - the two jars must be in `WEB-INF/lib`. *Changes not showing* - Servers view > right-click server > Clean.
 
+## How the quiz works (flow diagrams)
+
+The diagrams are Mermaid, so they display on GitHub. In an IDE, use the text next to each diagram.
+
+### 1. The MVC layers
+
+Every page follows the same path: the browser asks a servlet, the servlet uses a DAO to read or write XML, and then it forwards the data to a JSP that builds the HTML.
+
+```mermaid
+flowchart LR
+    B([Browser]) -->|1. URL or form| F[AuthFilter]
+    F -->|2. logged in?| S[Servlet<br/>controller]
+    S -->|3. ask| D[DAO + model classes]
+    D <-->|4. DOM read / write| X[(XML files<br/>users, questions, results)]
+    S -->|5. setAttribute + forward| J[JSP<br/>view]
+    J -->|6. HTML page| B
+```
+
+### 2. The student journey (every page and redirect)
+
+```mermaid
+flowchart TD
+    Home[index.jsp] --> Login["/login"]
+    Home --> Reg["/register"]
+    Reg -->|saved to users.xml| Login
+    Login -->|password OK, new session| Levels["/levels<br/>choose Easy, Medium or Hard"]
+    Levels -->|POST /start with level| Start{valid level and<br/>questions exist?}
+    Start -->|no| Levels
+    Start -->|yes: 10 random questions<br/>stored in session| Q["/question<br/>question, timer, progress bar"]
+    Q -->|Next, or timer reaches 0<br/>POST /answer| A{which question<br/>was it?}
+    A -->|not the current one<br/>Back button, double click| Q
+    A -->|answer recorded, score updated| More{more questions?}
+    More -->|yes| Q
+    More -->|no: result saved to results.xml| R["/result<br/>score, percentage, review"]
+    R -->|Restart| Levels
+    R --> MR["/myresults<br/>past attempts"]
+    Levels --> MR
+```
+
+Text version: `login > levels > start > question > answer > question ... > answer > result`. Restart goes back to `levels`.
+
+### 3. One question, step by step
+
+What happens between two questions. Note that `/answer` never shows a page: it saves the state and redirects.
+
+```mermaid
+sequenceDiagram
+    actor S as Student
+    participant Q as QuestionServlet
+    participant J as question.jsp + timer.js
+    participant A as AnswerServlet
+    participant H as HttpSession
+    participant R as ResultDAO / results.xml
+
+    S->>Q: GET /question
+    Q->>H: read quizQuestions, quizIndex, quizStartedAt
+    Q->>Q: millisLeft = 10 s minus time already used
+    Q->>J: forward (question, progress, millisLeft)
+    J-->>S: HTML page, countdown starts
+    alt student clicks Next
+        S->>A: POST /answer (qIndex, answer)
+    else timer reaches 0
+        J->>A: auto-submit form (answer may be empty)
+    end
+    A->>H: check qIndex matches quizIndex, check time limit
+    A->>H: save chosen answer, quizScore++ if correct, quizIndex++
+    alt more questions
+        A-->>S: redirect to /question
+    else last question
+        A->>R: save username, level, score, total, date
+        A->>H: quizFinished = true
+        A-->>S: redirect to /result
+    end
+```
+
+### 4. The 10-second timer
+
+```mermaid
+flowchart LR
+    subgraph Server
+      T1[quizStartedAt saved in session<br/>when the question is created]
+      T2[QuestionServlet sends<br/>millisLeft to the page]
+      T3[AnswerServlet rejects answers<br/>later than 10 s + 2 s grace]
+    end
+    subgraph Browser
+      B1[timer.js counts down<br/>from millisLeft]
+      B2[at 0: submit the form]
+    end
+    T1 --> T2 --> B1 --> B2 --> T3
+```
+
+Refreshing the page cannot reset the timer, because the start time is kept on the server. The JavaScript only displays the countdown and submits the form.
+
+### 5. The quiz state in the session
+
+```mermaid
+stateDiagram-v2
+    [*] --> NoQuiz: login
+    NoQuiz --> InProgress: POST /start (valid level)
+    InProgress --> InProgress: POST /answer, more questions left
+    InProgress --> Finished: POST /answer on the last question (result saved once)
+    Finished --> InProgress: Restart and choose a level
+    InProgress --> InProgress: Restart and choose a level (old quiz is replaced)
+    Finished --> [*]: logout (session destroyed)
+    InProgress --> [*]: logout (session destroyed)
+```
+
+| State | Session attributes | What `/question` and `/result` do |
+|---|---|---|
+| NoQuiz | only `user` | both redirect to `/levels` with a message |
+| InProgress | `quizLevel, quizQuestions, quizIndex, quizScore, quizChosen, quizStartedAt`, `quizFinished=false` | `/question` shows the current question; `/result` redirects to `/question` |
+| Finished | same, with `quizFinished=true` | `/question` redirects to `/result`; `/result` shows the review |
+
+### 6. Where each piece of data lives
+
+| Data | Stored in | Lives until |
+|---|---|---|
+| Logged-in user | session (`user`) | logout or 30 idle minutes |
+| Current quiz (questions, index, score, answers) | session (`quiz*`) | next quiz, logout, or session timeout |
+| Accounts, hashed passwords | `users.xml` | permanent |
+| Questions | `questions.xml` | permanent |
+| Finished attempts | `results.xml` | permanent |
+
 ## Edge cases handled
 
 | Situation | What happens |
