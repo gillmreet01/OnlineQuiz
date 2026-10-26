@@ -6,7 +6,7 @@ all data lives in XML files read/written with DOM.
 
 **Demo logins:** `admin / admin123` (admin login page) and `student1 / student123` (or register a new student).
 
-**Docs:** `VIVA_GUIDE.md` (team split, request flow, viva questions), `DEMO_SCRIPT.md` (7-minute demo), `ECLIPSE_GUIDE.md`, `INTELLIJ_GUIDE.md`, `NETBEANS_GUIDE.md`.
+**Docs:** `VIVA_GUIDE.md` (team split, request flow, viva questions), `VIVA_CHEATSHEET.md` (one-page revision sheet), `DEMO_SCRIPT.md` (7-minute demo), `ECLIPSE_GUIDE.md`, `INTELLIJ_GUIDE.md`, `NETBEANS_GUIDE.md`.
 
 ## Folder structure
 
