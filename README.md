@@ -6,6 +6,8 @@ all data lives in XML files read/written with DOM.
 
 **Demo logins:** `admin / admin123` (admin login page) and `student1 / student123` (or register a new student).
 
+**Which Tomcat?** This branch (`main`) is for **Tomcat 10.1 / 11** (`jakarta.servlet`). For **Tomcat 9** use the `tomcat9` branch (`javax.servlet`): `git clone -b tomcat9 https://github.com/gillmreet01/OnlineQuiz.git`.
+
 **Docs:** `VIVA_GUIDE.md` (team split, request flow, viva questions), `DEMO_SCRIPT.md` (7-minute demo), `ECLIPSE_GUIDE.md`, `INTELLIJ_GUIDE.md`, `NETBEANS_GUIDE.md`.
 
 ## Folder structure
