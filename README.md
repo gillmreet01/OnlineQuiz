@@ -8,7 +8,7 @@ all data lives in XML files read/written with DOM.
 
 **Which Tomcat?** This branch (`main`) is for **Tomcat 10.1 / 11** (`jakarta.servlet`). For **Tomcat 9** use the `tomcat9` branch (`javax.servlet`): `git clone -b tomcat9 https://github.com/gillmreet01/OnlineQuiz.git`.
 
-**Docs:** `VIVA_GUIDE.md` (team split, request flow, viva questions), `VIVA_CHEATSHEET.md` (one-page revision sheet), `DEMO_SCRIPT.md` (7-minute demo), `ECLIPSE_GUIDE.md`, `INTELLIJ_GUIDE.md`, `NETBEANS_GUIDE.md`.
+**Docs:** `VIVA_GUIDE.md` (team split, request flow, viva questions), `VIVA_CHEATSHEET.md` (one-page revision sheet), `MOCK_VIVA.md` (25-question practice run with scoring), `DEMO_SCRIPT.md` (7-minute demo), `ECLIPSE_GUIDE.md`, `INTELLIJ_GUIDE.md`, `NETBEANS_GUIDE.md`.
 
 ## Folder structure
 
