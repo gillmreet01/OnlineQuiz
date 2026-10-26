@@ -1,0 +1,4 @@
+<%-- Shared bottom part of every page. --%>
+<div class="footer">Online Quiz Application &middot; Java Servlets + JSP + XML</div>
+</body>
+</html>

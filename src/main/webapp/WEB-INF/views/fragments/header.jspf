@@ -1,0 +1,36 @@
+<%-- Shared top part of every page. Included with <%@ include file="..." %>.
+     The including page must declare the JSTL "c" taglib first and may set ${pageTitle}. --%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><c:out value="${empty pageTitle ? 'Online Quiz' : pageTitle}" /> - Online Quiz</title>
+  <link rel="stylesheet" href="${ctx}/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <a class="brand" href="${ctx}/">&#128640; Online Quiz</a>
+  <div class="nav-links">
+    <c:choose>
+      <c:when test="${empty sessionScope.user}">
+        <a href="${ctx}/login">Student Login</a>
+        <a href="${ctx}/register">Register</a>
+        <a href="${ctx}/adminlogin">Admin</a>
+      </c:when>
+      <c:when test="${sessionScope.user.admin}">
+        <a href="${ctx}/admin/dashboard">Dashboard</a>
+        <a href="${ctx}/admin/addquestion">Add Question</a>
+        <span class="nav-user">Admin: <c:out value="${sessionScope.user.fullName}" /></span>
+        <a href="${ctx}/logout">Logout</a>
+      </c:when>
+      <c:otherwise>
+        <a href="${ctx}/levels">Take Quiz</a>
+        <a href="${ctx}/myresults">My Results</a>
+        <span class="nav-user">Hi, <c:out value="${sessionScope.user.fullName}" /></span>
+        <a href="${ctx}/logout">Logout</a>
+      </c:otherwise>
+    </c:choose>
+  </div>
+</nav>

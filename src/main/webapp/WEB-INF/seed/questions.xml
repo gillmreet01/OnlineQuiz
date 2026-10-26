@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <correct> is the 0-based position of the right option: 0 = first option ... 3 = fourth -->
+<questions>
+  <question id="1" level="Easy">
+    <text>Which language is used to write Servlets?</text>
+    <option>Java</option>
+    <option>Python</option>
+    <option>C</option>
+    <option>PHP</option>
+    <correct>0</correct>
+  </question>
+  <question id="2" level="Easy">
+    <text>What does HTML stand for?</text>
+    <option>High Tool Markup Language</option>
+    <option>Home Tool Markup Language</option>
+    <option>Hyper Text Markup Language</option>
+    <option>Hyperlinks Text Mark Language</option>
+    <correct>2</correct>
+  </question>
+  <question id="3" level="Easy">
+    <text>Which keyword creates an object in Java?</text>
+    <option>make</option>
+    <option>new</option>
+    <option>create</option>
+    <option>object</option>
+    <correct>1</correct>
+  </question>
+  <question id="4" level="Easy">
+    <text>What is CSS used for?</text>
+    <option>Storing data</option>
+    <option>Server logic</option>
+    <option>Styling web pages</option>
+    <option>Compiling Java</option>
+    <correct>2</correct>
+  </question>
+  <question id="5" level="Easy">
+    <text>What is the file extension of a Java source file?</text>
+    <option>.java</option>
+    <option>.class</option>
+    <option>.jar</option>
+    <option>.js</option>
+    <correct>0</correct>
+  </question>
+  <question id="6" level="Easy">
+    <text>Which of these is NOT a primitive type in Java?</text>
+    <option>int</option>
+    <option>boolean</option>
+    <option>String</option>
+    <option>char</option>
+    <correct>2</correct>
+  </question>
+  <question id="7" level="Easy">
+    <text>What is the value of 10 % 3 in Java?</text>
+    <option>0</option>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <correct>1</correct>
+  </question>
+  <question id="8" level="Easy">
+    <text>Which symbol starts a single-line comment in Java?</text>
+    <option>#</option>
+    <option>&lt;!--</option>
+    <option>**</option>
+    <option>//</option>
+    <correct>3</correct>
+  </question>
+  <question id="9" level="Easy">
+    <text>Which of these is a web container that runs Servlets?</text>
+    <option>MySQL</option>
+    <option>Notepad</option>
+    <option>Photoshop</option>
+    <option>Apache Tomcat</option>
+    <correct>3</correct>
+  </question>
+  <question id="10" level="Easy">
+    <text>Which HTML tag creates a hyperlink?</text>
+    <option>&lt;link&gt;</option>
+    <option>&lt;a&gt;</option>
+    <option>&lt;href&gt;</option>
+    <option>&lt;url&gt;</option>
+    <correct>1</correct>
+  </question>
+  <question id="11" level="Easy">
+    <text>How many bits are there in one byte?</text>
+    <option>4</option>
+    <option>8</option>
+    <option>16</option>
+    <option>32</option>
+    <correct>1</correct>
+  </question>
+  <question id="12" level="Easy">
+    <text>Which data structure works on the FIFO principle?</text>
+    <option>Stack</option>
+    <option>Tree</option>
+    <option>Queue</option>
+    <option>Graph</option>
+    <correct>2</correct>
+  </question>
+  <question id="13" level="Medium">
+    <text>Which HttpServlet method handles an HTTP GET request?</text>
+    <option>doPost()</option>
+    <option>doGet()</option>
+    <option>doPut()</option>
+    <option>init()</option>
+    <correct>1</correct>
+  </question>
+  <question id="14" level="Medium">
+    <text>Which object is used to track a user across many requests?</text>
+    <option>HttpSession</option>
+    <option>ServletConfig</option>
+    <option>RequestDispatcher</option>
+    <option>PrintWriter</option>
+    <correct>0</correct>
+  </question>
+  <question id="15" level="Medium">
+    <text>What is Tomcat's default HTTP port?</text>
+    <option>80</option>
+    <option>8080</option>
+    <option>3306</option>
+    <option>443</option>
+    <correct>1</correct>
+  </question>
+  <question id="16" level="Medium">
+    <text>Which JSP tag is used to import a Java class?</text>
+    <option>&lt;%@ page import %&gt;</option>
+    <option>&lt;%= import %&gt;</option>
+    <option>&lt;jsp:forward&gt;</option>
+    <option>&lt;%-- import --%&gt;</option>
+    <correct>0</correct>
+  </question>
+  <question id="17" level="Medium">
+    <text>Which method sends a redirect to the browser?</text>
+    <option>request.forward()</option>
+    <option>response.sendRedirect()</option>
+    <option>session.redirect()</option>
+    <option>out.redirect()</option>
+    <correct>1</correct>
+  </question>
+  <question id="18" level="Medium">
+    <text>In DOM parsing, the XML document is loaded as a...</text>
+    <option>Tree in memory</option>
+    <option>Stream of events</option>
+    <option>Plain text only</option>
+    <option>Database table</option>
+    <correct>0</correct>
+  </question>
+  <question id="19" level="Medium">
+    <text>Which statement about XML is correct?</text>
+    <option>Tags are case-insensitive</option>
+    <option>An XML file needs no root element</option>
+    <option>Every opening tag must be closed</option>
+    <option>Attribute values need no quotes</option>
+    <correct>2</correct>
+  </question>
+  <question id="20" level="Medium">
+    <text>Which HTTP method sends form data in the request body?</text>
+    <option>GET</option>
+    <option>POST</option>
+    <option>HEAD</option>
+    <option>TRACE</option>
+    <correct>1</correct>
+  </question>
+  <question id="21" level="Medium">
+    <text>What is web.xml also called?</text>
+    <option>Deployment descriptor</option>
+    <option>Class loader</option>
+    <option>Servlet container</option>
+    <option>Session manager</option>
+    <correct>0</correct>
+  </question>
+  <question id="22" level="Medium">
+    <text>Which Java keyword stops a class from being inherited?</text>
+    <option>static</option>
+    <option>abstract</option>
+    <option>final</option>
+    <option>private</option>
+    <correct>2</correct>
+  </question>
+  <question id="23" level="Medium">
+    <text>Which collection does NOT allow duplicate elements?</text>
+    <option>ArrayList</option>
+    <option>Set</option>
+    <option>LinkedList</option>
+    <option>Vector</option>
+    <correct>1</correct>
+  </question>
+  <question id="24" level="Medium">
+    <text>Which servlet method is called only once, when the servlet is created?</text>
+    <option>service()</option>
+    <option>doGet()</option>
+    <option>destroy()</option>
+    <option>init()</option>
+    <correct>3</correct>
+  </question>
+  <question id="25" level="Hard">
+    <text>What is the correct servlet life-cycle order?</text>
+    <option>init, service, destroy</option>
+    <option>service, init, destroy</option>
+    <option>destroy, init, service</option>
+    <option>init, destroy, service</option>
+    <correct>0</correct>
+  </question>
+  <question id="26" level="Hard">
+    <text>Which scope lives the longest in a web application?</text>
+    <option>Request</option>
+    <option>Page</option>
+    <option>Session</option>
+    <option>Application</option>
+    <correct>3</correct>
+  </question>
+  <question id="27" level="Hard">
+    <text>Which call changes the URL shown in the browser's address bar?</text>
+    <option>RequestDispatcher.forward()</option>
+    <option>response.sendRedirect()</option>
+    <option>Both of them</option>
+    <option>Neither of them</option>
+    <correct>1</correct>
+  </question>
+  <question id="28" level="Hard">
+    <text>The Post/Redirect/Get pattern mainly prevents...</text>
+    <option>SQL injection</option>
+    <option>Duplicate form submission on refresh</option>
+    <option>Memory leaks</option>
+    <option>Slow queries</option>
+    <correct>1</correct>
+  </question>
+  <question id="29" level="Hard">
+    <text>Which JSP implicit object represents the HttpSession?</text>
+    <option>session</option>
+    <option>request</option>
+    <option>application</option>
+    <option>pageContext</option>
+    <correct>0</correct>
+  </question>
+  <question id="30" level="Hard">
+    <text>Which XML parser is event-based and does NOT load the whole document?</text>
+    <option>DOM</option>
+    <option>SAX</option>
+    <option>XSLT</option>
+    <option>DTD</option>
+    <correct>1</correct>
+  </question>
+  <question id="31" level="Hard">
+    <text>What does session.invalidate() do?</text>
+    <option>Clears only the cookie</option>
+    <option>Ends the session and removes its attributes</option>
+    <option>Restarts the server</option>
+    <option>Locks the session</option>
+    <correct>1</correct>
+  </question>
+  <question id="32" level="Hard">
+    <text>Which Expression Language syntax reads an attribute named user?</text>
+    <option>&lt;$ user $&gt;</option>
+    <option>${user}</option>
+    <option>@{user}</option>
+    <option>%{user}</option>
+    <correct>1</correct>
+  </question>
+  <question id="33" level="Hard">
+    <text>By default, how does a servlet container handle many requests for one servlet?</text>
+    <option>A new servlet object per request</option>
+    <option>One servlet instance, many threads</option>
+    <option>One process per request</option>
+    <option>Requests run strictly one by one</option>
+    <correct>1</correct>
+  </question>
+  <question id="34" level="Hard">
+    <text>Why do we store a password hash instead of the password?</text>
+    <option>A hash is shorter</option>
+    <option>The original password cannot easily be recovered</option>
+    <option>It makes login faster</option>
+    <option>XML requires it</option>
+    <correct>1</correct>
+  </question>
+  <question id="35" level="Hard">
+    <text>Which interface is implemented to intercept requests before they reach a servlet?</text>
+    <option>Runnable</option>
+    <option>Comparable</option>
+    <option>Filter</option>
+    <option>Cloneable</option>
+    <correct>2</correct>
+  </question>
+  <question id="36" level="Hard">
+    <text>Which HTTP status code means a server-side error occurred?</text>
+    <option>404</option>
+    <option>403</option>
+    <option>302</option>
+    <option>500</option>
+    <correct>3</correct>
+  </question>
+</questions>
