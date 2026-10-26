@@ -1,6 +1,27 @@
 # IntelliJ IDEA Setup Guide (Tomcat 10.1 + JDK 17)
 
-This project has no Maven/Gradle file, so you open it as a plain folder and tell IntelliJ about the source folder, the libraries and Tomcat.
+## Quick path: open the pom.xml (works in Community and Ultimate)
+
+The project has a `pom.xml`, so IntelliJ sets up the source folders and libraries by itself.
+
+1. Install **JDK 17**. Clone the repo (`git clone https://github.com/gillmreet01/OnlineQuiz.git`) or unzip the download.
+2. **File > Open**, select the **`pom.xml`** file (or the `OnlineQuiz` folder), choose **Open as Project**, click **Trust Project**.
+3. Wait for the Maven import to finish (progress bar at the bottom). Set **File > Project Structure > Project > SDK** to JDK 17 if asked.
+4. Open the **Maven** tool window (right edge) > **OnlineQuiz > Plugins > cargo > cargo:run** and double-click it.
+   - The first run downloads Tomcat 10.1 (about 12 MB), so you do not need to install Tomcat. It needs internet once.
+   - Wait for `Press Ctrl+C to stop the container`, then open **http://localhost:8080/OnlineQuiz/**.
+5. Stop it with the red square in the Run window. After you change code, stop and run `cargo:run` again.
+
+Command-line equivalent: `mvn cargo:run` in the project folder.
+Make a WAR for standalone Tomcat: `mvn package` creates `target/OnlineQuiz.war`.
+
+If the quick path works, you can skip the rest of this file. The rest is the manual setup (no Maven) and troubleshooting.
+
+---
+
+# Manual setup without Maven
+
+Use this only if you do not want Maven. You open the project as a plain folder and tell IntelliJ about the source folder, the libraries and Tomcat.
 Do the common steps first, then follow **Path A** (IntelliJ Ultimate) or **Path B** (Community).
 
 ## Which IntelliJ do I have?

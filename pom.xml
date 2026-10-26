@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Maven build file. IntelliJ, NetBeans and Eclipse (with m2e) can open this project from this file.
+     Packaging "war" = a web application that runs on Tomcat 10.1 (jakarta.servlet). -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.quiz</groupId>
+  <artifactId>OnlineQuiz</artifactId>
+  <version>1.0</version>
+  <packaging>war</packaging>
+  <name>OnlineQuiz</name>
+
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <tomcat.version>10.1.30</tomcat.version>
+  </properties>
+
+  <dependencies>
+    <!-- Servlet API: needed to compile. "provided" = Tomcat already has it, so it is not packed into the WAR.
+         The two JSTL jars (for the <c:...> tags) are already in src/main/webapp/WEB-INF/lib. -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <!-- The WAR is named OnlineQuiz.war, so the URL becomes /OnlineQuiz/ -->
+    <finalName>OnlineQuiz</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.4.0</version>
+      </plugin>
+
+      <!-- Optional: "mvn cargo:run" downloads Tomcat 10.1 and runs the app, no Tomcat install needed.
+           Stop with Ctrl+C. -->
+      <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven3-plugin</artifactId>
+        <version>1.10.14</version>
+        <configuration>
+          <container>
+            <containerId>tomcat10x</containerId>
+            <zipUrlInstaller>
+              <url>https://archive.apache.org/dist/tomcat/tomcat-10/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.zip</url>
+            </zipUrlInstaller>
+          </container>
+          <configuration>
+            <properties>
+              <cargo.servlet.port>8080</cargo.servlet.port>
+            </properties>
+          </configuration>
+          <deployables>
+            <deployable>
+              <groupId>com.quiz</groupId>
+              <artifactId>OnlineQuiz</artifactId>
+              <type>war</type>
+              <properties>
+                <context>/OnlineQuiz</context>
+              </properties>
+            </deployable>
+          </deployables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
