@@ -1,14 +1,14 @@
-# IntelliJ IDEA Setup Guide (Tomcat 10.1 + JDK 17)
+# IntelliJ IDEA Setup Guide (Tomcat 9 + JDK 11)
 
 ## Quick path: open the pom.xml (works in Community and Ultimate)
 
 The project has a `pom.xml`, so IntelliJ sets up the source folders and libraries by itself.
 
-1. Install **JDK 17**. Clone the repo (`git clone https://github.com/gillmreet01/OnlineQuiz.git`) or unzip the download.
+1. Install **JDK 11**. Clone the repo (`git clone https://github.com/gillmreet01/OnlineQuiz.git`) or unzip the download.
 2. **File > Open**, select the **`pom.xml`** file (or the `OnlineQuiz` folder), choose **Open as Project**, click **Trust Project**.
-3. Wait for the Maven import to finish (progress bar at the bottom). Set **File > Project Structure > Project > SDK** to JDK 17 if asked.
+3. Wait for the Maven import to finish (progress bar at the bottom). Set **File > Project Structure > Project > SDK** to JDK 11 if asked.
 4. Open the **Maven** tool window (right edge) > **OnlineQuiz > Plugins > cargo > cargo:run** and double-click it.
-   - The first run downloads Tomcat 10.1 (about 12 MB), so you do not need to install Tomcat. It needs internet once.
+   - The first run downloads Tomcat 9 (about 12 MB), so you do not need to install Tomcat. It needs internet once.
    - Wait for `Press Ctrl+C to stop the container`, then open **http://localhost:8080/OnlineQuiz/**.
 5. Stop it with the red square in the Run window. After you change code, stop and run `cargo:run` again.
 
@@ -33,15 +33,15 @@ Do the common steps first, then follow **Path A** (IntelliJ Ultimate) or **Path 
 
 ## Common steps
 
-1. Install **JDK 17** and unzip **Tomcat 10.1.x** (Core zip) to, for example, `C:\tomcat10`.
+1. Install **JDK 11** and unzip **Tomcat 9.0.x** (Core zip) to, for example, `C:\tomcat9`.
 2. Clone the repo (`git clone https://github.com/gillmreet01/OnlineQuiz.git`) or unzip the download.
 3. **File > Open**, choose the `OnlineQuiz` folder, click **Trust Project**.
-4. **File > Project Structure > Project**: set **SDK** to JDK 17 (Add SDK > Download JDK or point to your install) and **Language level** to 17.
+4. **File > Project Structure > Project**: set **SDK** to JDK 11 (Add SDK > Download JDK or point to your install) and **Language level** to 11.
 5. **Project Structure > Modules**: if no module exists, click **+ > New Module > Java**, set the **Content root** to the `OnlineQuiz` folder.
    - Open the **Sources** tab, right-click `src/main/java` in the tree and click **Sources** (the folder turns blue).
 6. **Project Structure > Libraries > + > Java**: choose `src/main/webapp/WEB-INF/lib` (the two JSTL jars) and add it to the module.
-7. Add the servlet API: **Libraries > + > Java**, choose `C:\tomcat10\lib\servlet-api.jar`, add it to the module. (Ultimate: you can instead add Tomcat as the module's server library in Path A.)
-8. Click **Apply**. The red `jakarta.servlet` imports in `src/main/java` should now be gone.
+7. Add the servlet API: **Libraries > + > Java**, choose `C:\tomcat9\lib\servlet-api.jar`, add it to the module. (Ultimate: you can instead add Tomcat as the module's server library in Path A.)
+8. Click **Apply**. The red `javax.servlet` imports in `src/main/java` should now be gone.
 
 ## Path A: IntelliJ Ultimate
 
@@ -50,8 +50,8 @@ Do the common steps first, then follow **Path A** (IntelliJ Ultimate) or **Path 
    - **Web resource directory:** `src/main/webapp`
 2. **Project Structure > Artifacts > + > Web Application: Exploded > From Module 'OnlineQuiz'**. Click OK.
 3. **Run > Edit Configurations > + > Tomcat Server > Local**:
-   - **Application server:** Configure... > pick `C:\tomcat10`
-   - **JRE:** 17
+   - **Application server:** Configure... > pick `C:\tomcat9`
+   - **JRE:** 11
    - **Deployment** tab: **+ > Artifact > OnlineQuiz:war exploded**
    - **Application context:** `/OnlineQuiz`
    - **Server** tab: HTTP port `8080`
@@ -61,7 +61,7 @@ Do the common steps first, then follow **Path A** (IntelliJ Ultimate) or **Path 
 
 1. **File > Settings > Plugins > Marketplace**, search **Smart Tomcat**, click **Install**, restart IntelliJ.
 2. **Run > Edit Configurations > + > Smart Tomcat** and set:
-   - **Tomcat Server:** Configure... > **+** > choose `C:\tomcat10`
+   - **Tomcat Server:** Configure... > **+** > choose `C:\tomcat9`
    - **Deployment Directory:** `<project>\src\main\webapp`
    - **Context Path:** `/OnlineQuiz`
    - **Server Port:** `8080`
@@ -80,7 +80,7 @@ Community highlights JSP files only as plain text and has no JSP code completion
 
 | Problem | Fix |
 |---|---|
-| `jakarta.servlet` red | Step 7 not done, or Tomcat 9 chosen. Use Tomcat **10.1** and add its `servlet-api.jar`. |
+| `javax.servlet` red | Step 7 not done, or Tomcat 10 chosen. Use Tomcat **9.0.x** and add its `servlet-api.jar`. |
 | HTTP 404 | The context path must be `/OnlineQuiz` and the URL must include it. Check the log for startup errors. |
 | JSTL / `<c:...>` error | The two jars in `WEB-INF/lib` must be added as a library (step 6) and be present in the deployed app. |
 | Port 8080 in use | Stop other Tomcats, or change the port in the run configuration. |

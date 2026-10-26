@@ -1,4 +1,4 @@
-# Eclipse Import Guide (Eclipse + Tomcat 10.1 + JDK 17)
+# Eclipse Import Guide (Eclipse + Tomcat 9 + JDK 11)
 
 The dialogs below are text mockups of what you should see. Button names can differ slightly between Eclipse versions.
 
@@ -9,9 +9,9 @@ The dialogs below are text mockups of what you should see. Button names can diff
 
 | Tool | Get it | Check |
 |---|---|---|
-| JDK 17 | adoptium.net (Temurin 17) | `java -version` shows 17 |
-| Tomcat 10.1.x | tomcat.apache.org > Download > Tomcat 10 > **Core: zip** | unzip to `C:\tomcat10` |
-| Eclipse | eclipse.org > **Eclipse IDE for Enterprise Java and Web Developers** (2023-09 or newer) | |
+| JDK 11 | adoptium.net (Temurin 11) | `java -version` shows 11 |
+| Tomcat 9.0.x | tomcat.apache.org > Download > Tomcat 9 > **Core: zip** | unzip to `C:\tomcat9` |
+| Eclipse | eclipse.org > **Eclipse IDE for Enterprise Java and Web Developers** (any recent version) | |
 
 The plain "Eclipse IDE for Java Developers" has no server tools, so the steps below will not work with it.
 
@@ -23,22 +23,22 @@ The plain "Eclipse IDE for Java Developers" has no server tools, so the steps be
 ┌ New Server Runtime Environment ──────────────────────┐
 │ Select the type of runtime environment:              │
 │   ▸ Apache                                           │
-│       Apache Tomcat v9.0                             │
-│    ► Apache Tomcat v10.1      <-- select this        │
+│       Apache Tomcat v8.5                             │
+│    ► Apache Tomcat v9.0       <-- select this        │
 │ [x] Create a new local server                        │
 │                              [Next >]                │
 └──────────────────────────────────────────────────────┘
 ┌ Tomcat Server ───────────────────────────────────────┐
-│ Name:                 Apache Tomcat v10.1            │
-│ Tomcat installation directory: [C:\tomcat10]  Browse │
-│ JRE:                  [ jdk-17 ]  <-- not 8 or 21    │
+│ Name:                 Apache Tomcat v9.0             │
+│ Tomcat installation directory: [C:\tomcat9]   Browse │
+│ JRE:                  [ jdk-11 ]  <-- JDK, not JRE   │
 │                              [Finish]                │
 └──────────────────────────────────────────────────────┘
 ```
 
-If JDK 17 is not in the JRE list, click **Installed JREs...**, then **Add > Standard VM**, choose the JDK 17 folder, and finish. Click **Apply and Close**.
+If JDK 11 is not in the JRE list, click **Installed JREs...**, then **Add > Standard VM**, choose the JDK 11 folder, and finish. Click **Apply and Close**.
 
-If "Apache Tomcat v10.1" is missing from the list, your Eclipse is too old. Update Eclipse.
+If "Apache Tomcat v9.0" is missing from the list, you have the wrong Eclipse edition. Install the Enterprise Java and Web Developers edition.
 
 ## Part 3: Create the Dynamic Web Project
 
@@ -48,8 +48,8 @@ If "Apache Tomcat v10.1" is missing from the list, your Eclipse is too old. Upda
 ```
 ┌ New Dynamic Web Project ─────────────────────────────┐
 │ Project name:  OnlineQuiz        <-- exactly this    │
-│ Target runtime:  [Apache Tomcat v10.1]               │
-│ Dynamic web module version:  [6.0]                   │
+│ Target runtime:  [Apache Tomcat v9.0]                │
+│ Dynamic web module version:  [4.0]                   │
 │ Configuration:  Default Configuration                │
 │                                [Next >]              │
 └──────────────────────────────────────────────────────┘
@@ -98,10 +98,10 @@ Check: `src/main/webapp/WEB-INF` should contain `lib`, `seed`, `views` and `web.
 
 1. **Project > Clean... > Clean all projects > OK**.
 2. Open the **Problems** tab (Window > Show View > Problems). It should show **0 errors**. Yellow warnings are fine.
-3. If `jakarta.servlet` is underlined red:
-   - Right-click the project > **Properties > Java Build Path > Libraries**. You should see **Server Runtime [Apache Tomcat v10.1]** and **Web App Libraries**.
-   - If the server runtime is missing, go to **Properties > Targeted Runtimes**, tick **Apache Tomcat v10.1**, and click **Apply**.
-4. In Properties, open **Java Compiler** and set the compliance level to **17**.
+3. If `javax.servlet` is underlined red:
+   - Right-click the project > **Properties > Java Build Path > Libraries**. You should see **Server Runtime [Apache Tomcat v9.0]** and **Web App Libraries**.
+   - If the server runtime is missing, go to **Properties > Targeted Runtimes**, tick **Apache Tomcat v9.0**, and click **Apply**.
+4. In Properties, open **Java Compiler** and set the compliance level to **11**.
 
 ## Part 6: Run it
 
@@ -109,7 +109,7 @@ Check: `src/main/webapp/WEB-INF` should contain `lib`, `seed`, `views` and `web.
 ```
 ┌ Run On Server ───────────────────────────────────────┐
 │ ( ) Choose an existing server                        │
-│    ► Tomcat v10.1 Server at localhost   <-- select   │
+│    ► Tomcat v9.0 Server at localhost    <-- select   │
 │ [x] Always use this server                           │
 │                                [Next >]              │
 │ Available:  OnlineQuiz  --> [Add >]  --> Configured  │
@@ -144,9 +144,9 @@ Then open `C:\Users\<you>\OnlineQuizData\` and open `results.xml` or `questions.
 |---|---|
 | **HTTP 404** at `/OnlineQuiz/` | Check that the URL includes `/OnlineQuiz/`. Look in the Console for red errors during startup. |
 | **Port 8080 already in use** | Stop other Tomcats (Servers tab, red square). Or double-click the server in the Servers tab and change the HTTP port to 8081. |
-| **Red error on `<%@ taglib ... jakarta.tags.core %>`** | The two JSTL jars must be in `WEB-INF/lib`. Refresh with F5, then run Project > Clean. |
-| **`ClassNotFoundException: javax.servlet...`** | You installed Tomcat 9 but used this Tomcat 10 code. Use Tomcat 10.1, or follow the Tomcat 9 section in `README.md`. |
-| **"Dynamic web module 6.0" not offered** | Your Eclipse is too old. Install 2023-09 or newer. |
+| **Red error on `<%@ taglib ... http://java.sun.com/jsp/jstl/core %>`** | The two JSTL jars must be in `WEB-INF/lib`. Refresh with F5, then run Project > Clean. |
+| **`ClassNotFoundException: jakarta.servlet...`** | You installed Tomcat 10 but this branch is for Tomcat 9. Use Tomcat 9.0.x, or switch to the `main` branch for Tomcat 10. |
+| **"Dynamic web module 4.0" not offered** | Choose Tomcat 9.0 as the Target runtime first; the version list depends on it. |
 | **Changes don't show up** | In the Servers tab, right-click the server > **Clean...** and then **Publish**. |
 | **Want a fresh start with no registered users** | Stop the server and delete the `OnlineQuizData` folder in your user home. It is recreated on the next start. |
 

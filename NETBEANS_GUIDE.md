@@ -1,29 +1,29 @@
-# NetBeans Setup Guide (Tomcat 10.1 + JDK 17)
+# NetBeans Setup Guide (Tomcat 9 + JDK 11)
 
 NetBeans opens Maven projects directly, so this project (it has a `pom.xml`) needs no manual library setup.
-The dialog names below are from recent NetBeans versions (Apache NetBeans 20 or newer); older ones are very similar.
+The dialog names below are from recent NetBeans versions (Apache NetBeans); older ones are very similar.
 
 ## Part 1: Install the tools (once per computer)
 
 | Tool | Get it | Check |
 |---|---|---|
-| JDK 17 | adoptium.net (Temurin 17) | `java -version` shows 17 |
-| Apache NetBeans | netbeans.apache.org > Download (installer or zip, version 20+) | starts and lists JDK 17 |
-| Tomcat 10.1.x | tomcat.apache.org > Download > Tomcat 10 > **Core: zip** | unzip to `C:\tomcat10` |
+| JDK 11 | adoptium.net (Temurin 11) | `java -version` shows 11 |
+| Apache NetBeans | netbeans.apache.org > Download (installer or zip, version 20+) | starts and lists JDK 11 |
+| Tomcat 9.0.x | tomcat.apache.org > Download > Tomcat 9 > **Core: zip** | unzip to `C:\tomcat9` |
 
-If NetBeans does not find JDK 17 at startup, run it with `--jdkhome "C:\Program Files\Eclipse Adoptium\jdk-17..."`, or set `netbeans_jdkhome` in `netbeans\etc\netbeans.conf`.
+If NetBeans does not find JDK 11 at startup, run it with `--jdkhome "C:\Program Files\Eclipse Adoptium\jdk-11..."`, or set `netbeans_jdkhome` in `netbeans\etc\netbeans.conf`.
 
 ## Part 2: Register Tomcat in NetBeans
 
 1. Open the **Services** tab (Window > Services).
 2. Right-click **Servers > Add Server...**
 3. Choose **Apache Tomcat or TomEE**, click **Next**.
-4. **Server Location:** browse to `C:\tomcat10`.
+4. **Server Location:** browse to `C:\tomcat9`.
 5. **Username/Password:** NetBeans asks for a Tomcat manager user. Enter a username and password of your own, and keep "Create user if it does not exist" ticked. Click **Finish**.
 
 You should see **Apache Tomcat or TomEE** under Servers in the Services tab.
 
-If NetBeans reports that the Tomcat version is not supported, update NetBeans. Tomcat 10.1 needs a recent release.
+If NetBeans reports that the Tomcat version is not supported, update NetBeans. Tomcat 9 works with every current NetBeans release.
 
 ## Part 3: Open the project
 
@@ -36,13 +36,13 @@ If NetBeans reports that the Tomcat version is not supported, update NetBeans. T
 
 If the project node is red, right-click it and choose **Resolve Project Problems...**, or **Reload POM**. You need internet once to download Maven's dependencies.
 
-## Part 4: Set the project to use Tomcat 10.1
+## Part 4: Set the project to use Tomcat 9
 
 1. Right-click the project > **Properties**.
 2. **Run** category > **Server:** choose **Apache Tomcat or TomEE** (the one from Part 2).
-3. **Java EE Version:** choose **Jakarta EE 10 Web** (or the highest Jakarta EE option).
+3. **Java EE Version:** choose **Java EE 8 Web** (not Jakarta EE 9 or 10).
 4. **Relative URL / Context Path:** `/OnlineQuiz`.
-5. **Sources** category > **Source/Binary Format:** 17. Click **OK**.
+5. **Sources** category > **Source/Binary Format:** 11. Click **OK**.
 
 ## Part 5: Run it
 
@@ -55,16 +55,16 @@ When you change code, press **F6** again. NetBeans redeploys.
 
 ## Alternative: run without registering Tomcat
 
-Open the **Projects** tab, right-click the project > **Run Maven > Goals...**, type `cargo:run` and click OK. This downloads Tomcat 10.1 on the first run. Open `http://localhost:8080/OnlineQuiz/`. Stop it with the red square in the Output tab.
+Open the **Projects** tab, right-click the project > **Run Maven > Goals...**, type `cargo:run` and click OK. This downloads Tomcat 9 on the first run. Open `http://localhost:8080/OnlineQuiz/`. Stop it with the red square in the Output tab.
 
 ## Troubleshooting
 
 | Problem | Fix |
 |---|---|
-| `package jakarta.servlet does not exist` | The Maven dependencies have not loaded. Right-click project > **Reload POM** or **Build with Dependencies**. Check you have internet. |
-| Tomcat not accepted / "unsupported version" | Update NetBeans to 20 or newer, and use Tomcat 10.1.x. |
+| `package javax.servlet does not exist` | The Maven dependencies have not loaded. Right-click project > **Reload POM** or **Build with Dependencies**. Check you have internet. |
+| Tomcat not accepted / "unsupported version" | Update NetBeans, and use Tomcat 9.0.x. |
 | **Server startup error: port 8080 in use** | Stop other Tomcats, or change the port (Services > Servers > Tomcat > Properties > Connection). |
 | HTTP 404 | The URL must include `/OnlineQuiz/`. Check the Context Path in Project Properties > Run. |
-| `ClassNotFoundException: javax.servlet` | You are using Tomcat 9. Use Tomcat 10.1, or follow the Tomcat 9 section in `README.md`. |
+| `ClassNotFoundException: jakarta.servlet` | You are using Tomcat 10. Use Tomcat 9.0.x, or switch to the `main` branch. |
 | Changes not showing | **Clean and Build** (Shift+F11), then **Run**. |
 | Fresh start with no registered users | Stop the server and delete the `OnlineQuizData` folder in your user home. |

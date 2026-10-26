@@ -1,4 +1,4 @@
-# Online Quiz Application (Java Servlets + JSP + XML)
+# Online Quiz Application - Tomcat 9 edition (Java Servlets + JSP + XML)
 
 Student/admin login, Easy/Medium/Hard quizzes with a 10-second timer per question, progress bar,
 score + percentage, answer review and "My Results". No Swing, no Spring, no database:
@@ -51,24 +51,24 @@ OnlineQuiz/
 | `ResultServlet.java`, `MyResultsServlet.java` | Result page, past attempts |
 | `timer.js` | 10-second countdown, auto-submits the form at 0 |
 
-## Setup (Eclipse + Tomcat 10.1 + JDK 17)
+## Setup (Eclipse + Tomcat 9 + JDK 11)
 
-1. **Install JDK 17** (Temurin or Oracle). Check with `java -version`.
-2. **Install Tomcat 10.1.x**: download the "Core" zip from https://tomcat.apache.org/download-10.cgi and unzip, for example to `C:\tomcat10`. Tomcat 10+ uses `jakarta.servlet` (this project is written for it).
-3. **Use Eclipse IDE for Enterprise Java and Web Developers (2023-09 or newer)**. The plain "Java" edition has no web tools.
-4. **Register Tomcat in Eclipse:** Window > Preferences > Server > Runtime Environments > Add > *Apache Tomcat v10.1* > point to the Tomcat folder and choose JDK 17.
-5. **Create the project:** File > New > Dynamic Web Project. Name `OnlineQuiz`, Target runtime *Tomcat 10.1*, Dynamic web module version **6.0**, tick *Generate web.xml* off. Finish.
+1. **Install JDK 11** (Temurin or Oracle; JDK 8 also works if you change `maven.compiler.release` in `pom.xml` to 8). Check with `java -version`.
+2. **Install Tomcat 9.0.x**: download the "Core" zip from https://tomcat.apache.org/download-90.cgi and unzip, for example to `C:\tomcat9`. Tomcat 9 uses `javax.servlet` (this branch is written for it; the `main` branch is the Tomcat 10 / `jakarta.servlet` version).
+3. **Use Eclipse IDE for Enterprise Java and Web Developers** (any recent version). The plain "Java" edition has no web tools.
+4. **Register Tomcat in Eclipse:** Window > Preferences > Server > Runtime Environments > Add > *Apache Tomcat v9.0* > point to the Tomcat folder and choose JDK 11.
+5. **Create the project:** File > New > Dynamic Web Project. Name `OnlineQuiz`, Target runtime *Tomcat 9.0*, Dynamic web module version **4.0**, tick *Generate web.xml* off. Finish.
 6. **Copy the code in:** from this repo copy
    - `src/main/java/com/quiz` into the project's `src/main/java/com/quiz`
    - everything inside `src/main/webapp` into the project's `src/main/webapp` (Eclipse may call it `WebContent`; use whichever folder holds `WEB-INF`). Overwrite the generated `web.xml`.
-   Refresh the project (F5). There should be no red errors. If `jakarta.servlet` is red, check step 4 and that the Tomcat runtime is selected under Project > Properties > Targeted Runtimes.
-7. **Run:** right-click the project > Run As > Run on Server > Tomcat 10.1 > Finish. Open `http://localhost:8080/OnlineQuiz/`.
+   Refresh the project (F5). There should be no red errors. If `javax.servlet` is red, check step 4 and that the Tomcat runtime is selected under Project > Properties > Targeted Runtimes.
+7. **Run:** right-click the project > Run As > Run on Server > Tomcat 9.0 > Finish. Open `http://localhost:8080/OnlineQuiz/`.
 8. **Where is the XML data?** Folder `OnlineQuizData` in your user home (for example `C:\Users\you\OnlineQuizData`). The path is printed in the Console when the app starts. You can open the XML files in Eclipse to see registrations, results and new questions arrive. To change the folder, set `dataDir` in `web.xml`. Delete the folder to reset all data.
 9. **Deploy a WAR on standalone Tomcat:** right-click project > Export > WAR file > `OnlineQuiz.war`, copy to `<tomcat>/webapps`, run `<tomcat>/bin/startup.bat`, open the same URL.
 
-**Maven option (IntelliJ / NetBeans / command line):** the project has a `pom.xml`. Open it in your IDE, or run `mvn cargo:run` (downloads Tomcat 10.1 automatically) and open `http://localhost:8080/OnlineQuiz/`. `mvn package` builds `target/OnlineQuiz.war`. See `INTELLIJ_GUIDE.md` and `NETBEANS_GUIDE.md`.
+**Maven option (IntelliJ / NetBeans / command line):** the project has a `pom.xml`. Open it in your IDE, or run `mvn cargo:run` (downloads Tomcat 9 automatically) and open `http://localhost:8080/OnlineQuiz/`. `mvn package` builds `target/OnlineQuiz.war`. See `INTELLIJ_GUIDE.md` and `NETBEANS_GUIDE.md`.
 
-**Using Tomcat 9 instead?** In every `.java` file replace `jakarta.servlet` with `javax.servlet`; in each JSP replace taglib URI `jakarta.tags.core` with `http://java.sun.com/jsp/jstl/core`; use JSTL 1.2 jars; set web.xml to version 4.0.
+**Need Tomcat 10 / 11 instead?** Use the `main` branch of this repository (`jakarta.servlet`).
 
 **Common problems:** *404 after start* - use the project name in the URL (`/OnlineQuiz/`). *"Port 8080 in use"* - stop other Tomcat or change the port in Eclipse's Servers view. *JSTL / `c:` errors* - the two jars must be in `WEB-INF/lib`. *Changes not showing* - Servers view > right-click server > Clean.
 
