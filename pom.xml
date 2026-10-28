@@ -40,7 +40,7 @@
         <version>3.4.0</version>
       </plugin>
 
-      <!-- Optional: "mvn cargo:run" downloads Tomcat 9 and runs the app, no Tomcat install needed.
+      <!-- Optional: "mvn package cargo:run" builds the WAR, downloads Tomcat 9 and runs the app, no Tomcat install needed.
            Stop with Ctrl+C. -->
       <plugin>
         <groupId>org.codehaus.cargo</groupId>
