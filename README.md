@@ -68,7 +68,7 @@ OnlineQuiz/
 8. **Where is the XML data?** Folder `OnlineQuizData` in your user home (for example `C:\Users\you\OnlineQuizData`). The path is printed in the Console when the app starts. You can open the XML files in Eclipse to see registrations, results and new questions arrive. To change the folder, set `dataDir` in `web.xml`. Delete the folder to reset all data.
 9. **Deploy a WAR on standalone Tomcat:** right-click project > Export > WAR file > `OnlineQuiz.war`, copy to `<tomcat>/webapps`, run `<tomcat>/bin/startup.bat`, open the same URL.
 
-**Maven option (IntelliJ / NetBeans / command line):** the project has a `pom.xml`. Open it in your IDE, or run `mvn cargo:run` (downloads Tomcat 10.1 automatically) and open `http://localhost:8080/OnlineQuiz/`. `mvn package` builds `target/OnlineQuiz.war`. See `INTELLIJ_GUIDE.md` and `NETBEANS_GUIDE.md`.
+**Maven option (IntelliJ / NetBeans / command line):** the project has a `pom.xml`. Open it in your IDE, or run `mvn package cargo:run` (downloads Tomcat 10.1 automatically) and open `http://localhost:8080/OnlineQuiz/`. `mvn package` builds `target/OnlineQuiz.war`. See `INTELLIJ_GUIDE.md` and `NETBEANS_GUIDE.md`.
 
 **Using Tomcat 9 instead?** In every `.java` file replace `jakarta.servlet` with `javax.servlet`; in each JSP replace taglib URI `jakarta.tags.core` with `http://java.sun.com/jsp/jstl/core`; use JSTL 1.2 jars; set web.xml to version 4.0.
 

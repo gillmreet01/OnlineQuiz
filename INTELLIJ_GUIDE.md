@@ -7,12 +7,12 @@ The project has a `pom.xml`, so IntelliJ sets up the source folders and librarie
 1. Install **JDK 17**. Clone the repo (`git clone https://github.com/gillmreet01/OnlineQuiz.git`) or unzip the download.
 2. **File > Open**, select the **`pom.xml`** file (or the `OnlineQuiz` folder), choose **Open as Project**, click **Trust Project**.
 3. Wait for the Maven import to finish (progress bar at the bottom). Set **File > Project Structure > Project > SDK** to JDK 17 if asked.
-4. Open the **Maven** tool window (right edge) > **OnlineQuiz > Plugins > cargo > cargo:run** and double-click it.
+4. Open the **Maven** tool window (right edge). First double-click **OnlineQuiz > Lifecycle > package** (it builds the WAR), then double-click **OnlineQuiz > Plugins > cargo > cargo:run**.
    - The first run downloads Tomcat 10.1 (about 12 MB), so you do not need to install Tomcat. It needs internet once.
    - Wait for `Press Ctrl+C to stop the container`, then open **http://localhost:8080/OnlineQuiz/**.
 5. Stop it with the red square in the Run window. After you change code, stop and run `cargo:run` again.
 
-Command-line equivalent: `mvn cargo:run` in the project folder.
+Command-line equivalent: `mvn package cargo:run` in the project folder (`package` builds the WAR that `cargo:run` starts).
 Make a WAR for standalone Tomcat: `mvn package` creates `target/OnlineQuiz.war`.
 
 If the quick path works, you can skip the rest of this file. The rest is the manual setup (no Maven) and troubleshooting.

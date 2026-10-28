@@ -55,7 +55,7 @@ When you change code, press **F6** again. NetBeans redeploys.
 
 ## Alternative: run without registering Tomcat
 
-Open the **Projects** tab, right-click the project > **Run Maven > Goals...**, type `cargo:run` and click OK. This downloads Tomcat 10.1 on the first run. Open `http://localhost:8080/OnlineQuiz/`. Stop it with the red square in the Output tab.
+Open the **Projects** tab, right-click the project > **Run Maven > Goals...**, type `package cargo:run` and click OK. This downloads Tomcat 10.1 on the first run. Open `http://localhost:8080/OnlineQuiz/`. Stop it with the red square in the Output tab.
 
 ## Troubleshooting
 
